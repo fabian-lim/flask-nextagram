@@ -27,14 +27,14 @@ def create():
             flash("Successfully logged in!")
             # save user id in browser session
             login_user(user) 
-            return redirect(url_for('home'))
+            return redirect(url_for('users.show', username=user.username))
         else: 
             flash("Password not matched")
             return render_template("sessions/new.html")
     else:
         flash("Password not matched")
         return render_template("sessions/new.html")
-        
+
 @sessions_blueprint.route('/delete', methods=['POST'])
 @login_required
 def destroy():

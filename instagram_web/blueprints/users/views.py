@@ -53,8 +53,6 @@ def edit(id):
         flash("No user found")
         return redirect(url_for('home'))
 
-
-
 @users_blueprint.route('/<id>', methods=['POST'])
 def update(id):
     user = User.get_or_none(User.id == id)

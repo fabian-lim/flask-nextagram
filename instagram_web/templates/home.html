@@ -1,5 +1,7 @@
 {% extends "_layout.html" %}
 
+
+
 {% block title %}
   Homepage
 {% endblock %}
@@ -8,6 +10,9 @@
 {% endblock %}
 
 {% block content %}
+  {% block nav %}
+  {% endblock %}
+  
   <h1>Homepage</h1>
   {% if current_user.is_authentiated %}
     <h3>Logged in as {{current_user.username}}</h3>

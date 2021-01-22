@@ -17,7 +17,6 @@
     {% block header %}
     {% endblock %}
 
-    
 
     <title>
       {% block title %}
@@ -26,7 +25,8 @@
 
   </head>
   <body>
-    
+    {% include 'nav.html' %}
+
     {% block content %}
     {% endblock %}
     <footer>

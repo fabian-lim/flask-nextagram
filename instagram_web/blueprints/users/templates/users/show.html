@@ -2,6 +2,7 @@
 
 {% block content %}
     <h1>This is {{user.username}}'s Profile</h1>
+    <img src="{{user.full_image_path}}" height="300px" alt="">
     {% if current_user.id == user.id %}
         <a href="{{ url_for('users.edit', id=current_user.id)}}">Edit Profile</a>
     {% endif %}

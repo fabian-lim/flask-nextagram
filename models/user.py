@@ -3,12 +3,22 @@ import peewee as pw
 from werkzeug.security import generate_password_hash
 import re
 from flask_login import UserMixin
+from playhouse.hybrid import hybrid_property
 
 class User(UserMixin, BaseModel):
     username = pw.CharField(unique=True, null=False)
     email = pw.CharField(unique = True)    
     password_hash = pw.TextField(null=False)
     password = None
+    image_path=pw.TextField(null=True)
+
+    @hybrid_property
+    def full_image_path(self):
+        if self.image_path:
+            from app import app
+            return app.config.get("S3_LOCATION") + self.image_path
+        else:
+            return ""
 
     def validate(self):
         # check if email is unique

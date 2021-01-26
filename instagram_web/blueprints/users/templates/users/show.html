@@ -1,18 +1,37 @@
 {% extends "_layout.html" %}
 
 {% block content %}
-    <h1>This is {{user.username}}'s Profile</h1>
-    <img src="{{user.full_image_path}}" height="300px" alt="">
-    {% if current_user.id == user.id %}
-        <a href="{{ url_for('users.edit', id=current_user.id)}}">Edit Profile</a>
-    {% endif %}
+  <div class="d-flex justify-content-center">
+    <div class="col-3 text-center">
+        <!-- profile image & username -->
+      <img src="{{user.full_image_path}}" class="img-thumbnail rounded-circle" height="200px" width="200px" alt="">
+      <h1> @{{user.username}}</h1>
+      
+      {% if current_user.id == user.id %}
+      <a class="btn btn-info" href="{{ url_for('users.edit', id=current_user.id)}}">Edit Profile</a>
+      <br><br>
+      <a class="btn btn-info" href="{{ url_for('images.new') }}">Upload Image</a>
+      {% endif %}
+      
+    </div>
+  </div>  
+  
+  <br>      
+    <!-- images uploaded from the user -->
+  <div class="container">
+    {% for image in user.images %}
+      <img src="{{image.full_image_path}}" width="300"/>
+    {% endfor %}
+  </div>
 
+
+    <!-- Flash -->
     {% with messages = get_flashed_messages() %}
     {% if messages %}
       <ul class=flashes>
-      {% for message in messages %}
+      <!-- {% for message in messages %}
         <li>{{ message }}</li>
-      {% endfor %}
+      {% endfor %} -->
       </ul>
     {% endif %}
     {% endwith %}

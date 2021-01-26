@@ -10,21 +10,30 @@
 
 
 {% block content %}
-
-  <h1>Homepage</h1>
-  {% if current_user.is_authentiated %}
-    <h3>Logged in as {{current_user.username}}</h3>
-  {% endif %}
-
+  <div class="container">
+    <h1>Homepage</h1>
+    {% if current_user.is_authentiated %}
+      <h3>Logged in as {{current_user.username}}</h3>
+    {% endif %}
+    
+    <h4>All users:</h4>
+    {% for user in users %}
+      <li>
+        <a href="{{url_for('users.show', username=user.username)}}">{{user.username}}</a>
+      </li>
+    {% endfor%}
+    
+  </div>
+  {% endblock %}
+  
   <!-- flash message callback -->
   {% with messages = get_flashed_messages() %}
   {% if messages %}
-    <ul class=flashes>
+  <ul class=flashes>
     {% for message in messages %}
-      <li>{{ message }}</li>
+    <li>{{ message }}</li>
     {% endfor %}
-    </ul>
+  </ul>
   {% endif %}
-{% endwith %}
-
-{% endblock %}
+  {% endwith %}
+  

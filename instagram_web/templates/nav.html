@@ -1,40 +1,48 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid" >
-      <a class="navbar-brand" href="{{ url_for('home') }}">Nextagram</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <div class="container-fluid space-in-between" >
+       
+      <!-- Nextagram -->
+      <div>
+          <a class="navbar-brand" href="{{ url_for('home') }}">Nextagram</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      <!-- Togglers -->
+        <div>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <!-- Home -->
+                <li class="nav-item">
+                  <a class="nav-link btn btn-light" href="{{ url_for('home') }}">Home</a>
+                </li>
+                
+                {% if current_user.is_authenticated %}
+                <!-- Profile page -->
+                <li class="nav-item">
+                  <a class="nav-link btn btn-light" href="{{ url_for('users.show', username=current_user.username) }}">My Profile</a>
+                </li>
+                
+                <!-- If user is logged in, display "Logout" -->
+                <li class="nav-item">
+                  <form action="{{ url_for('sessions.destroy') }}" method="POST">
+                      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                      <input type="submit" class="btn btn-light" value="Logout">
+                  </form>
+                </li>
+                <!-- If no user is logged in, display "Sign In & Sign Up" -->
+                {% else %}
+                <li class="nav-item">
+                  <a class="nav-link " href="{{ url_for('sessions.new') }}">Sign In</a>
+                </li>
 
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link btn btn-light" href="{{ url_for('home') }}">Home</a>
-          </li>
-
-          {% if current_user.is_authenticated %}
-          <li class="nav-item">
-            <a class="nav-link btn btn-light" href="{{ url_for('users.show', username=current_user.username) }}">My Profile</a>
-          </li>
-
-          <li class="nav-item">
-            <form action="{{ url_for('sessions.destroy') }}" method="POST">
-                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                <input type="submit" class="btn btn-light" value="Logout">
-            </form>
-          </li>
-
-          {% else %}
-          <li class="nav-item">
-            <a class="nav-link " href="{{ url_for('sessions.new') }}">Sign In</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link " href="{{ url_for('users.new') }}">Sign Up</a>
-          </li>
-          {% endif %}
-        </ul>
-
-      </div>
+                <li class="nav-item">
+                  <a class="nav-link " href="{{ url_for('users.new') }}">Sign Up</a>
+                </li>
+                {% endif %}
+            </ul>
+          </div> <!-- div close for toggle button -->
+        </div> <!-- div close for three right buttons -->
     </div>
-  </nav>
+</nav>
 
